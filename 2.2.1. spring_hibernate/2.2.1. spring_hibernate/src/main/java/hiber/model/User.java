@@ -79,13 +79,14 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", userCar=" + userCar +
-                ", model = " + getUserCar().getModel() + '\'' +
-                ", series = " + getUserCar().getSeries();
+
+        return "User" +'\n' +
+                 "firstName = " + firstName + '\n' +
+                 "lastName = "  + lastName + '\n' +
+                 "email = " + email + '\n' +
+                 "userCar" + '\n' +
+                 "model = "  + getUserCar().getModel() + '\n' +
+                 "series = "  + getUserCar().getSeries();
 
     }
 }

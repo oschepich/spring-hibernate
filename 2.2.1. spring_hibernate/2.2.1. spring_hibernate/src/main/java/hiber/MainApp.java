@@ -6,6 +6,7 @@ import hiber.model.User;
 import hiber.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import javax.persistence.NoResultException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -33,16 +34,17 @@ public class MainApp {
             }
 
 //вывод в консоль всех узеров владеющих машиной по ее модели и серии.
-            List<User> userCar = userService.getUserCar("Volga", 3110);
-            for (User user : userCar) {
-                System.out.println("Id = " + user.getId());
-                System.out.println("First Name = " + user.getFirstName());
-                System.out.println("Last Name = " + user.getLastName());
-                System.out.println("Email = " + user.getEmail());
-                System.out.println("model = " + user.getUserCar().getModel());
-                System.out.println("series = " + user.getUserCar().getSeries());
+            try {
+                User user = userService.getUserCar("Volga", 2109);
+                System.out.println(user.toString());
                 System.out.println();
+                User user1 = userService.getUserCar("Volga", 31105);
+
             }
+            catch (NoResultException e){
+                System.out.println("Пользователя (User-а) с автомобилем Volga, серии 31105 не существует");
+            }
+
         }
     }
 }

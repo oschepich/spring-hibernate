@@ -1,15 +1,16 @@
 package hiber.dao;
 
-import hiber.model.Car;
+
 import hiber.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Query;
+
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.stream.Stream;
+
 
 @SuppressWarnings("UnnecessaryLocalVariable")
 @Repository
@@ -31,11 +32,13 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
-    public List<User> getUserCar(String mod, int ser) {
+    public User getUserCar(String mod, int ser) {
         TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(" FROM User where  userCar.model = :model and userCar.series = :series");
         query.setParameter("model", mod).setParameter("series", ser);
-        return query.getResultList();
-
+        if (query.getSingleResult()!=null){ return query.getSingleResult();
+        }
+        else {throw  new NoResultException();
+        }
     }
 
 }
